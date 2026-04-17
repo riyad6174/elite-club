@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&amp;family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#00531a",
+                        "error-container": "#93000a",
+                        "surface-variant": "#223553",
+                        "on-surface-variant": "#c4c6ce",
+                        "on-primary": "#690006",
+                        "on-secondary-fixed-variant": "#344766",
+                        "surface-container-highest": "#223553",
+                        "surface-container": "#0a203d",
+                        "secondary": "#b4c7ec",
+                        "secondary-fixed-dim": "#b4c7ec",
+                        "on-primary-fixed": "#410002",
+                        "tertiary-fixed": "#83fc8e",
+                        "primary-fixed-dim": "#ffb4ac",
+                        "tertiary-container": "#002909",
+                        "primary": "#ffb4ac",
+                        "secondary-container": "#344766",
+                        "primary-container": "#4d0003",
+                        "secondary-fixed": "#d6e3ff",
+                        "outline-variant": "#44474d",
+                        "on-primary-fixed-variant": "#93000d",
+                        "surface-dim": "#00132e",
+                        "on-surface": "#d6e3ff",
+                        "on-secondary": "#1d314e",
+                        "inverse-surface": "#d6e3ff",
+                        "tertiary-fixed-dim": "#66df75",
+                        "tertiary": "#66df75",
+                        "outline": "#8e9098",
+                        "background": "#00132e",
+                        "on-primary-container": "#ff3e3b",
+                        "primary-fixed": "#ffdad6",
+                        "on-tertiary-fixed": "#002106",
+                        "on-secondary-container": "#a3b6da",
+                        "inverse-on-surface": "#1d314e",
+                        "surface-tint": "#ffb4ac",
+                        "surface": "#00132e",
+                        "on-secondary-fixed": "#051b38",
+                        "on-tertiary-container": "#1a9e3e",
+                        "inverse-primary": "#c00015",
+                        "surface-container-low": "#051b38",
+                        "on-tertiary": "#00390f",
+                        "on-background": "#d6e3ff",
+                        "surface-container-lowest": "#000e25",
+                        "on-error-container": "#ffdad6",
+                        "on-error": "#690005",
+                        "surface-container-high": "#162a48",
+                        "surface-bright": "#273a58",
+                        "error": "#ffb4ab"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .kinetic-gradient {
+            background: linear-gradient(45deg, #ffb4ac 0%, #ff3e3b 100%);
+        }
+        .clip-slant {
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+        }
+        .clip-slant-footer {
+            clip-path: polygon(0 15%, 100% 0, 100% 100%, 0% 100%);
+        }
+        .glass-panel {
+            background: rgba(39, 58, 88, 0.6);
+            backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary selection:text-on-primary">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 no-border bg-gradient-to-b from-[#051b38] to-transparent">
+<nav class="flex justify-between items-center h-20 px-12 max-w-[1920px] mx-auto bg-[#00132e]/60 backdrop-blur-xl shadow-[0_24px_48px_-12px_rgba(0,14,37,0.15)]">
+<div class="flex items-center gap-4">
+<img alt="Regina Elites Club Logo" class="h-12 w-auto" data-alt="Stylized geometric sporting club logo with sharp angles and a prestigious shield shape in deep navy and vibrant red" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeNZhNheg5aemdNeVy8YJAR9XcdWXYQiJbEtURnGy0uUjSJdS5tTui8W4MN82TNeN5ewZ0y03pIuuI5zfrxQQoQAB8Pb1eo9fLel6KnJ6jHGWFpukdniIketH0Ij1bZGIXoG7a_XoUqB2Gyt3D_FAEWd0fnw2-bEsA0JSOouMzfjU9b-82-bd7HbNZnLEjnaruHPPC55Ev5upgYguBaoL6Tnz2GZsby6dYiK_UtJH-aU37_1a2K9n_t07rzYqNh1b7yrLc1uKku9VB"/>
+<span class="text-2xl font-black italic text-white tracking-widest font-headline">REGINA ELITES</span>
+</div>
+<div class="hidden md:flex gap-8 items-center font-headline uppercase tracking-tighter">
+<a class="text-white/70 hover:text-white transition-colors" href="#">TEAMS</a>
+<a class="text-white/70 hover:text-white transition-colors" href="#">SCHEDULE</a>
+<a class="text-white/70 hover:text-white transition-colors" href="#">MEMBERSHIP</a>
+<a class="text-white/70 hover:text-white transition-colors" href="#">CLUB NEWS</a>
+<a class="text-white/70 hover:text-white transition-colors" href="#">ACADEMY</a>
+</div>
+<div class="flex items-center gap-6">
+<button class="kinetic-gradient text-on-primary-fixed font-headline font-bold px-6 py-2 rounded-sm scale-95 active:scale-90 transition-transform uppercase tracking-wider">
+                    JOIN THE ELITE
+                </button>
+</div>
+</nav>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center pt-20 overflow-hidden clip-slant">
+<div class="absolute inset-0 z-0">
+<img alt="Elite Stadium" class="w-full h-full object-cover brightness-[0.4] contrast-[1.1]" data-alt="Massive professional sports stadium at night with dramatic floodlights, deep shadows, and atmospheric mist hanging over the field" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACelB9kMWFMiMO1e8DgaJQV34W9eMNNN4MsSgrIUgaCqUf99wRykcgpberxzx01jNYX6Pfz1JyBjUZlZTDGaCGVP_ZpPMST6494swaCbqKiCqWhbokDzNIIz5_ETs8O0w4uFxr39cDxAfnuVPNf739LbzpQG_FXx0z7zYY-1VK6PKYeLTe59qeGviz5NdUk5e4bbLjd6DnVvsNFvPsXhzTjOLKsfw1y3ep_QTyTVj7wzBZnbI87bibNBPT-6wqr1THsJNKZuKzvftS"/>
+<div class="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent"></div>
+</div>
+<div class="container mx-auto px-12 relative z-10">
+<div class="max-w-4xl space-y-6">
+<span class="text-tertiary font-headline font-bold tracking-[0.4em] text-sm uppercase block">ESTABLISHED 1924</span>
+<h1 class="text-white font-headline font-black text-7xl md:text-9xl leading-[0.85] uppercase tracking-tighter">
+                        UNLEASH<br/>YOUR ELITE<br/><span class="text-transparent bg-clip-text kinetic-gradient">POTENTIAL</span>
+</h1>
+<p class="text-on-surface-variant text-xl max-w-xl font-light leading-relaxed">
+                        Experience the zenith of athletic prestige. Join a legacy of champions where precision meets power in our state-of-the-art facilities.
+                    </p>
+<div class="flex gap-4 pt-8">
+<button class="kinetic-gradient text-on-primary-fixed font-headline font-extrabold px-10 py-4 rounded-sm transition-all hover:scale-105 active:scale-95 uppercase tracking-widest text-lg">
+                            JOIN THE CLUB
+                        </button>
+<button class="bg-surface-bright/20 border border-outline-variant/30 text-white font-headline font-bold px-10 py-4 rounded-sm hover:bg-surface-bright transition-all uppercase tracking-widest text-lg backdrop-blur-md">
+                            EXPLORE ACADEMY
+                        </button>
+</div>
+</div>
+</div>
+<!-- Stats Bar -->
+<div class="absolute bottom-32 right-12 flex gap-12 z-10">
+<div class="flex flex-col">
+<span class="text-white font-headline font-black text-5xl">12X</span>
+<span class="text-tertiary-fixed-dim font-headline font-bold text-xs tracking-widest uppercase">CHAMPIONS</span>
+</div>
+<div class="flex flex-col">
+<span class="text-white font-headline font-black text-5xl">450+</span>
+<span class="text-tertiary-fixed-dim font-headline font-bold text-xs tracking-widest uppercase">ATHLETES</span>
+</div>
+<div class="flex flex-col">
+<span class="text-white font-headline font-black text-5xl">24/7</span>
+<span class="text-tertiary-fixed-dim font-headline font-bold text-xs tracking-widest uppercase">TRAINING</span>
+</div>
+</div>
+</section>
+<!-- Upcoming Events -->
+<section class="py-32 px-12 bg-surface">
+<div class="flex justify-between items-end mb-16">
+<div class="space-y-2">
+<span class="text-tertiary font-headline font-bold tracking-widest text-xs uppercase">MATCH DAY</span>
+<h2 class="text-white font-headline font-black text-5xl uppercase tracking-tighter">UPCOMING FIXTURES</h2>
+</div>
+<button class="text-on-primary-container font-headline font-bold hover:underline underline-offset-8">VIEW FULL CALENDAR</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Match Card 1 -->
+<div class="bg-surface-container-low p-8 relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-tertiary"></div>
+<div class="flex justify-between items-start mb-12">
+<span class="bg-surface-bright px-3 py-1 text-[10px] font-bold tracking-widest uppercase">SOCCER • PREMIER LEAGUE</span>
+<span class="text-white/40 text-[10px] font-bold tracking-widest uppercase">OCT 24, 2024</span>
+</div>
+<div class="flex items-center justify-between gap-4 mb-12">
+<div class="text-center">
+<div class="w-16 h-16 bg-surface-container-highest flex items-center justify-center rounded-sm mb-2 group-hover:scale-110 transition-transform">
+<img alt="Regina Elites" class="w-10 h-10 opacity-80" data-alt="Small white geometric sporting club logo on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUZlAEESbf9VSWcVk02MStHGJZKqnGNoQCx-nmVHegrj994o889kSXVjvP-Fg8I5AFYuu66lXV0DVptoaVrhWS9yFSyvmk_rgyFyqj4gls6aASoeKh7SgkEdFWRJZx9JWYKsmCpu2vLGa_9RArLOtZcfFfE3cXTu8c6RQjMIoYOv94zds2XAPpgi7H7-_36iJnirmEtTgnvHW_fTWF_mOZSTZpDLBiaUcFeflpvZnHV_9sPlN9LY6GGjhqOPYXImpfHrIzyg7GJa4H"/>
+</div>
+<p class="text-[10px] font-bold tracking-widest">ELITES</p>
+</div>
+<span class="text-white/20 font-headline font-black text-3xl italic">VS</span>
+<div class="text-center">
+<div class="w-16 h-16 bg-surface-container-highest flex items-center justify-center rounded-sm mb-2 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl text-outline">sports_soccer</span>
+</div>
+<p class="text-[10px] font-bold tracking-widest">WANDERERS</p>
+</div>
+</div>
+<button class="w-full bg-on-primary-container text-on-primary-fixed font-headline font-black py-4 rounded-sm tracking-widest uppercase text-sm hover:brightness-110 transition-all">
+                        GET TICKETS
+                    </button>
+</div>
+<!-- Match Card 2 -->
+<div class="bg-surface-container-low p-8 relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary"></div>
+<div class="flex justify-between items-start mb-12">
+<span class="bg-surface-bright px-3 py-1 text-[10px] font-bold tracking-widest uppercase">CRICKET • ELITE CUP</span>
+<span class="text-white/40 text-[10px] font-bold tracking-widest uppercase">OCT 28, 2024</span>
+</div>
+<div class="flex items-center justify-between gap-4 mb-12">
+<div class="text-center">
+<div class="w-16 h-16 bg-surface-container-highest flex items-center justify-center rounded-sm mb-2 group-hover:scale-110 transition-transform">
+<img alt="Regina Elites" class="w-10 h-10 opacity-80" data-alt="Small white geometric sporting club logo on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeC6EbxzD-vv6yQEiIFuC4RoHDDr_SY_53a68ML02ZMRKMws0dQsyNYUpvuJ8ak-waBnK531VCgXshCy_L8dC84s2yytm5fvrx9cH8CKi7aVd-N2Xev4hajlvItG9IglVYL0doV0hgrYdGlWptu5xwYT_SADdnNR2LmhG5otJkV7PC-JpItVhsLkDlWw7qMVoUkXjGQ2q43bGqZbRSWHtma_5Pr37hL9VFCKhuRD1kG-PeglCbRPd1_1Tg9n_ZQx-zTDdDuEYDqZPh"/>
+</div>
+<p class="text-[10px] font-bold tracking-widest">ELITES</p>
+</div>
+<span class="text-white/20 font-headline font-black text-3xl italic">VS</span>
+<div class="text-center">
+<div class="w-16 h-16 bg-surface-container-highest flex items-center justify-center rounded-sm mb-2 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl text-outline">sports_cricket</span>
+</div>
+<p class="text-[10px] font-bold tracking-widest">STRIKERS</p>
+</div>
+</div>
+<button class="w-full border border-outline-variant/30 text-white font-headline font-black py-4 rounded-sm tracking-widest uppercase text-sm hover:bg-surface-bright transition-all">
+                        REMIND ME
+                    </button>
+</div>
+<!-- Match Card 3 -->
+<div class="bg-surface-container-low p-8 relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-tertiary"></div>
+<div class="flex justify-between items-start mb-12">
+<span class="bg-surface-bright px-3 py-1 text-[10px] font-bold tracking-widest uppercase">BADMINTON • OPEN</span>
+<span class="text-white/40 text-[10px] font-bold tracking-widest uppercase">NOV 02, 2024</span>
+</div>
+<div class="flex items-center justify-between gap-4 mb-12">
+<div class="text-center">
+<div class="w-16 h-16 bg-surface-container-highest flex items-center justify-center rounded-sm mb-2 group-hover:scale-110 transition-transform">
+<img alt="Regina Elites" class="w-10 h-10 opacity-80" data-alt="Small white geometric sporting club logo on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAosTr4OhCZZoBgtOVfxrHibrogrBV0xXguMFh-nj-4tWoA-MjJSMMWBIsJWFAb27wxgg3LWHqe3zihaioTs3yJLjYumoe4JrAjiqpG1w0bsmiMUWonvfKPaHjUBmJTYlGxPhKVwSmoB8bRA60Rl14VNFMb2tX4wpeBJz2uDuOdVh1Xa4F0PFzj8FlyiyPvNZdQ4ZKWNi-q7iEr6z2kQj4VuPHZBDnjzok9_yzkdgq4L7mh-txuE1xFO9L2T-3JAtU8ts3KdHUJImGB"/>
+</div>
+<p class="text-[10px] font-bold tracking-widest">ELITES</p>
+</div>
+<span class="text-white/20 font-headline font-black text-3xl italic">VS</span>
+<div class="text-center">
+<div class="w-16 h-16 bg-surface-container-highest flex items-center justify-center rounded-sm mb-2 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl text-outline">sports_tennis</span>
+</div>
+<p class="text-[10px] font-bold tracking-widest">TITANS</p>
+</div>
+</div>
+<button class="w-full bg-on-primary-container text-on-primary-fixed font-headline font-black py-4 rounded-sm tracking-widest uppercase text-sm hover:brightness-110 transition-all">
+                        GET TICKETS
+                    </button>
+</div>
+</div>
+</section>
+<!-- Our Elite Teams - Bento Grid -->
+<section class="py-32 px-12 bg-surface-container-lowest">
+<div class="mb-16 text-center max-w-2xl mx-auto space-y-4">
+<span class="text-tertiary font-headline font-bold tracking-[0.4em] text-xs uppercase block">THE ROSTER</span>
+<h2 class="text-white font-headline font-black text-6xl uppercase tracking-tighter">OUR ELITE TEAMS</h2>
+<p class="text-on-surface-variant font-light">Pushing boundaries across multiple disciplines with specialized coaching and elite infrastructure.</p>
+</div>
+<div class="grid grid-cols-12 grid-rows-2 gap-4 h-[800px]">
+<div class="col-span-8 row-span-1 relative group overflow-hidden">
+<img alt="Soccer Team" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" data-alt="Professional soccer player in action, mid-kick, dramatic evening sunlight casting long shadows on a perfectly manicured grass pitch" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBUITkEkyfMvbDW5acHlia0q0q3iwzrCuUZcs7ENOk5HG2m4C1fwh0-eWX_MlZsdm5ruOg6l64TvWl8VW1omrsmABORcak3T8Ot3kAjG3TvgHAbz_fyd7-9voO5wXxx56SGGLx70KdQoLCcw7q3vu_CU3nwijsnQqLLA8juG44OdgWNj3LBDvipkSWbV559YSX5VMySRwjl0LE8-zICaLjLz9Qc42Sp7Yr0rE6nUbMVnl6ZGGZal01B2xxNJn-1rOxWnB8uUZP0IJb"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent flex flex-col justify-end p-8">
+<h3 class="text-white font-headline font-black text-4xl uppercase tracking-tighter">SOCCER SQUAD</h3>
+<p class="text-tertiary font-bold tracking-widest text-xs uppercase">DIVISION 1 • NATIONAL RANKED</p>
+</div>
+</div>
+<div class="col-span-4 row-span-1 relative group overflow-hidden">
+<img alt="Cricket Team" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" data-alt="Cricket batsman in full protective gear, focused stance at the crease, vibrant green field with soft morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQtgPal6V2sny9cBl4EL83WJna7cD79ncjTaDjNSQKSmB-Afm-P3g8Ynh-WaAIebnoBFbtybfHfugsrAAhg9pnFaxh20zNN6YenCbPrqMH_Fz61lsrl8GaXqmhZar0bDPLpV07aN-qoQ2Zpta6HmRlKYhP05yoN0s2o13Fo22za9dBR_PXE0alCpqfLEXPBvAh0yFP9SCy9bhBncFD_SIeVYzvvOWrq6QAB74ejR1oWt99slt0Gz80ocHRXvFDU2_Mhiduk-bgCvy-"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent flex flex-col justify-end p-8">
+<h3 class="text-white font-headline font-black text-4xl uppercase tracking-tighter">CRICKET XI</h3>
+<p class="text-tertiary font-bold tracking-widest text-xs uppercase">STATE CHAMPIONS</p>
+</div>
+</div>
+<div class="col-span-4 row-span-1 relative group overflow-hidden">
+<img alt="Badminton Team" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" data-alt="Fast-paced badminton action in a modern indoor arena, bright artificial lighting highlighting the shuttlecock movement" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWhuWbnGBifWhfOmWZUAByXaZHvbZ5XTUNxewiY95xMC8nNOZnQTLXR2vjSwpNjjAWWh6CLIxzA6Y965Jk3Xp3yM0QiYK7AWhEHGkV3y2MNdPQ5q1dh6H9qVFxqdx-u5wJAYb_OsB676pPWcNmwezcSFfUGp7UO-vw7vjmaVfttQg5TZzUoHnAqo92usvCCGSA0rVQSILlmB3pRbvpE_cKABIrXevllqv0Z19TQFhaktr8hcdTDiAIWnicNyvWKiixK37x9OoomJzQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent flex flex-col justify-end p-8">
+<h3 class="text-white font-headline font-black text-4xl uppercase tracking-tighter">BADMINTON</h3>
+<p class="text-tertiary font-bold tracking-widest text-xs uppercase">PRO LEAGUE ELITE</p>
+</div>
+</div>
+<div class="col-span-8 row-span-1 relative group overflow-hidden">
+<img alt="Swimming Team" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" data-alt="Professional swimmer underwater mid-stroke, bubbles reflecting overhead lights in a pristine Olympic-sized swimming pool" src="https://lh3.googleusercontent.com/aida-public/AB6AXuClBleKqRNxzCTVCkv83RoE6bOanrfur1HBej_8TvdwSLF2ZZLjZGEgHmFM4Umw2brZZ_dd3kmzpTupLetVyaZoYKaTzqScwUZNUpjtYg6KrVRzdxW_JOoHzppFGselQwTaRL33YU-AFdhjDr6uQXtReSsNR3VH8OuyN_k6A07wy3ECL7Wnp1R34OUjO7SuVDAwpRPQcMwdv61_wsEhhjFHg7SK_B3v_Kz8tTRYVaok38Tq14wupClNyKIFEaXky8Z91ndkbYRKm3NB"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent flex flex-col justify-end p-8">
+<h3 class="text-white font-headline font-black text-4xl uppercase tracking-tighter">ELITE SWIMMING</h3>
+<p class="text-tertiary font-bold tracking-widest text-xs uppercase">OLYMPIC PATHWAY PROGRAM</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Gallery - Action Shots -->
+<section class="py-32 bg-surface">
+<div class="px-12 mb-12">
+<h2 class="text-white font-headline font-black text-5xl uppercase tracking-tighter">GALLERY OF ACTION</h2>
+</div>
+<div class="flex overflow-hidden gap-4 h-[400px]">
+<img alt="Action 1" class="w-1/4 object-cover grayscale hover:grayscale-0 transition-all" data-alt="Dynamic shot of soccer players celebrating a goal under stadium lights with rain falling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDajtv8FKPPFp-bLiwfn0LQjkD99sVeJ4iE43ADbhXP20I-thZ3IJvQ-OQ3guHixVpstDCL1NaBraX-50bfXTsKLY9QddsR2z0smKibYBNCf0gzt4calFGaV8_Ujk46b80CIfJ_nZ2UvnKOHEhF9tvrwTQpOCOZlvlY95M9lwo_OJimyAk1NEfvO05QV9YCPbCXO1843S_STnLUEIpr7p8EpO9Q-_qXzevut46OsOFsPUGAb5QlaFki36NpUjyfR0MiE0Z-058EZSBJ"/>
+<img alt="Action 2" class="w-1/4 object-cover grayscale hover:grayscale-0 transition-all" data-alt="Close up of a cricket ball hitting the wickets with dirt flying into the air" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9dT_AWs_ni6dre1JMp7w0Amd-NugaBztQrbzz8lbocSonJVcKDpqBmEaTCsqQ-F4vKUfVAI-sXjQnrueBKZJM7Kq98-HXHI0b-SCDhdrUYHXv6T6rYOgH7bfdySgEN6N8V6YATvKgORaaXiH93-5xERRKJ36pp-kKjZPVHctnVK2pgi6pP6CMg2VZMBBuHVeXuhwn32Gmd-K0ywEnGX_PGo_WRw8rcWBbD6IK4SzB4GSalzeWAAHuHcdHihRWjUdDVQA8Cwld_HUL"/>
+<img alt="Action 3" class="w-1/4 object-cover grayscale hover:grayscale-0 transition-all" data-alt="Intense badminton rally with the shuttlecock frozen in mid-air and athlete fully extended" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZuiO3OAAVYOkE6svZlOJZNxfNguQDUFSER1kR70SVvesWv1rV3rrAcnAMlkKOvzHiphMJ_rao2WOyHNggEZj36LLFc_U0cavOyFoto2g4vvT5279BWY8eMT6kE1zdJG8lnrpM90VpZkPNToXZiMdgAxbbcBUJQYQhGWhTqI0BOrnw8G628lgJubTYzC6x8QGPeVx6OoPrLPe7M9MGaSsILCCG-IezL6lV7N4ByhZtT6_ygXVfk5fHhTmbxlLeAUUlkhTKQKJEiFt_"/>
+<img alt="Action 4" class="w-1/4 object-cover grayscale hover:grayscale-0 transition-all" data-alt="Competitive swimmers diving off blocks into clear blue water with splashing droplets" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAy65a1eaCtcDsX4NAPhMjS5Rh5dTaPA7pn-0kbiC0_pQ_keuIDOae07fgJIRYJsnjusB1UggucZPMKGLYzi1kpF2nUDY8UY_pLby8zOtlxX-Dd03D1r5-E6IBHFOVE0fwKHF4nP5HMx4e3zuVkeN2lccThLs7mrO9QksAQFQ8p3c3Mbc6fD5T1x-f7I-W2Vbx-n7uyzCArnUVKBEDrnnkbv0eeu-7uEicAV1N8FTfROomy6bcCYtPy0ktXFVSLybCkCfs8EnnAyfiP"/>
+</div>
+</section>
+<!-- Elite Stories (Blog) -->
+<section class="py-32 px-12 bg-surface-container">
+<div class="flex justify-between items-end mb-16">
+<h2 class="text-white font-headline font-black text-5xl uppercase tracking-tighter">ELITE STORIES</h2>
+<button class="bg-surface-bright/40 text-white font-headline font-bold px-6 py-2 rounded-sm border border-outline-variant/30 hover:bg-surface-bright transition-all text-xs tracking-widest uppercase">READ ALL NEWS</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<!-- Blog Item 1 -->
+<article class="flex flex-col md:flex-row gap-8 group cursor-pointer">
+<div class="w-full md:w-1/2 aspect-video overflow-hidden">
+<img alt="Story 1" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Wide shot of a modern glass-walled sports training facility with athletes visible inside training on equipment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTDu-MftyQ0Qyrl0M8aXZZkVrZ01vCj-B_yOBSQU-FMS-ouBzoTUycRL_Mr8tAMOsQK7rY5bRNtzH_9S01e8Vq9jhTsQLi3RWGLDEiM1PEfwiKtOv8ijOSrwZ58Q53yBWSqAEb_HUMTjBkMWf-Jisn7iNX_TXvhe4z9x1HidxtX46Bxq9xa8Isat7ugnFHkWobStXwfQPvzuDdfG3sTVCpgc-tWO5-G0LTGx867DrUmD83t0xbM9cpFrevDftfnR_VCDy2jTUUOsBI"/>
+</div>
+<div class="w-full md:w-1/2 flex flex-col justify-center space-y-4">
+<span class="text-tertiary font-headline font-bold text-[10px] tracking-widest uppercase">FACILITIES</span>
+<h3 class="text-white font-headline font-black text-3xl uppercase leading-none group-hover:text-primary transition-colors">NEW TRAINING FACILITY OPENING 2025</h3>
+<p class="text-on-surface-variant font-light text-sm line-clamp-3">We are proud to announce the groundbreaking of our new high-performance center, featuring Olympic-sized recovery pools and AI-driven performance tracking labs.</p>
+<div class="pt-4 border-t border-outline-variant/20 flex items-center gap-2">
+<span class="text-white/40 text-[10px] font-bold tracking-widest uppercase">OCT 18, 2024 • 5 MIN READ</span>
+</div>
+</div>
+</article>
+<!-- Blog Item 2 -->
+<article class="flex flex-col md:flex-row gap-8 group cursor-pointer">
+<div class="w-full md:w-1/2 aspect-video overflow-hidden">
+<img alt="Story 2" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Trophy sitting on a podium with sparkling confetti falling in the background and dramatic blue lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYizznuzIz_q_Kj5yijh22AGgnuCzY_p7WfRqeDbtSZaxwAUvNWEOrZkbT0AfVR2oebe8XFxwmH543vACz9eEJsJ99kAdnqttlqrF_EKjyZiTO8EXHrC2-cis69CtRZtX7BimOCxvZJFJy2TWqAB8i12wnjtGbnfhM--54Wg1Jcy2Cc4poOOCheUODGQGrynbusHNDVIpINFt_KQ-yTL1kuefzTAzb7q-9QCWYTjYylLH_XItXHFsZsK2VcTAbZKIZhSW95-kb2Jp9"/>
+</div>
+<div class="w-full md:w-1/2 flex flex-col justify-center space-y-4">
+<span class="text-tertiary font-headline font-bold text-[10px] tracking-widest uppercase">ACHIEVEMENT</span>
+<h3 class="text-white font-headline font-black text-3xl uppercase leading-none group-hover:text-primary transition-colors">CHAMPIONSHIP VICTORY SECURED</h3>
+<p class="text-on-surface-variant font-light text-sm line-clamp-3">The Regina Elites Soccer Squad has claimed the grand finale title for the third consecutive year after a thrilling 3-2 comeback victory.</p>
+<div class="pt-4 border-t border-outline-variant/20 flex items-center gap-2">
+<span class="text-white/40 text-[10px] font-bold tracking-widest uppercase">OCT 12, 2024 • 8 MIN READ</span>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- Sponsors Logo Cloud -->
+<section class="py-16 bg-surface-container-lowest border-y border-outline-variant/10">
+<div class="px-12 flex flex-wrap justify-between items-center opacity-30 grayscale gap-12">
+<span class="font-headline font-black text-2xl tracking-tighter uppercase italic">NIKE</span>
+<span class="font-headline font-black text-2xl tracking-tighter uppercase italic">ADIDAS</span>
+<span class="font-headline font-black text-2xl tracking-tighter uppercase italic">PUMA</span>
+<span class="font-headline font-black text-2xl tracking-tighter uppercase italic">RED BULL</span>
+<span class="font-headline font-black text-2xl tracking-tighter uppercase italic">GATORADE</span>
+<span class="font-headline font-black text-2xl tracking-tighter uppercase italic">UNDER ARMOUR</span>
+</div>
+</section>
+<!-- Join Us Section -->
+<section class="relative py-40 overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img alt="Athletic Texture" class="w-full h-full object-cover brightness-[0.2]" data-alt="Blurred motion of runners on a dark track with high contrast highlights and a moody athletic atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCox-2j-Io8OFCrCkk5Yj1nLjWotgLc2VX7x9YvaJNiQzJHvXyfFvbPxX-TmBVbSUiJThOHiJwWORtLMuDqbPUdjoT2G13hpR4n45oGx7jPkDjc89B61KzEU0znbG-9tjltdjZ8gwvQIqjLUY2I8IJVWBNWH_06WW7tBu7YKJ0W1WyllH93efnPyJjdz-G_qDClb06AAKOZHGpqv0r8kD4aRJ7mGXgEu7RraePsxZTaXx7CsT6XA8hp698TFvd9PdnOhT6XDg_HNf0Z"/>
+</div>
+<div class="container mx-auto px-12 relative z-10">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+<div class="space-y-8">
+<h2 class="text-white font-headline font-black text-7xl uppercase tracking-tighter">BECOME AN<br/><span class="text-transparent bg-clip-text kinetic-gradient">ELITE MEMBER</span></h2>
+<ul class="space-y-6">
+<li class="flex items-center gap-4 text-on-surface">
+<span class="material-symbols-outlined text-tertiary">check_circle</span>
+<span class="font-headline font-bold text-lg uppercase tracking-tight">ACCESS TO WORLD-CLASS FACILITIES</span>
+</li>
+<li class="flex items-center gap-4 text-on-surface">
+<span class="material-symbols-outlined text-tertiary">check_circle</span>
+<span class="font-headline font-bold text-lg uppercase tracking-tight">PRIORITY MATCH TICKETING</span>
+</li>
+<li class="flex items-center gap-4 text-on-surface">
+<span class="material-symbols-outlined text-tertiary">check_circle</span>
+<span class="font-headline font-bold text-lg uppercase tracking-tight">PERSONALIZED PERFORMANCE COACHING</span>
+</li>
+<li class="flex items-center gap-4 text-on-surface">
+<span class="material-symbols-outlined text-tertiary">check_circle</span>
+<span class="font-headline font-bold text-lg uppercase tracking-tight">EXCLUSIVE CLUB MERCHANDISE</span>
+</li>
+</ul>
+</div>
+<div class="bg-surface-container p-12 shadow-2xl relative">
+<div class="absolute top-0 right-0 w-24 h-24 bg-primary/10 clip-slant"></div>
+<h3 class="text-white font-headline font-black text-3xl uppercase mb-8">REGISTER YOUR INTEREST</h3>
+<form class="space-y-6">
+<div class="space-y-2">
+<label class="text-[10px] font-bold tracking-[0.3em] text-white/50 uppercase">FULL NAME</label>
+<input class="w-full bg-surface-container-highest border-0 border-b border-outline-variant/30 focus:border-primary focus:ring-0 text-white placeholder:text-white/20 uppercase text-xs tracking-widest py-4" placeholder="ENTER NAME" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-[10px] font-bold tracking-[0.3em] text-white/50 uppercase">EMAIL ADDRESS</label>
+<input class="w-full bg-surface-container-highest border-0 border-b border-outline-variant/30 focus:border-primary focus:ring-0 text-white placeholder:text-white/20 uppercase text-xs tracking-widest py-4" placeholder="EMAIL@DOMAIN.COM" type="email"/>
+</div>
+<div class="space-y-2">
+<label class="text-[10px] font-bold tracking-[0.3em] text-white/50 uppercase">INTERESTED SPORT</label>
+<select class="w-full bg-surface-container-highest border-0 border-b border-outline-variant/30 focus:border-primary focus:ring-0 text-white uppercase text-xs tracking-widest py-4">
+<option>SELECT SPORT</option>
+<option>SOCCER</option>
+<option>CRICKET</option>
+<option>BADMINTON</option>
+<option>SWIMMING</option>
+</select>
+</div>
+<button class="w-full kinetic-gradient text-on-primary-fixed font-headline font-black py-5 rounded-sm uppercase tracking-[0.2em] hover:brightness-110 transition-all mt-8">
+                                SUBMIT APPLICATION
+                            </button>
+</form>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#000e25] w-full relative bottom-0 clip-slant-footer">
+<div class="flex flex-col md:flex-row justify-between items-center py-16 px-12 gap-8 max-w-[1920px] mx-auto">
+<div class="flex flex-col gap-4 items-center md:items-start">
+<span class="text-4xl font-black text-[#051b38] opacity-50 font-headline uppercase">REGINA ELITES</span>
+<p class="text-white/30 text-[10px] font-headline tracking-widest max-w-xs text-center md:text-left">© 2024 REGINA ELITES SPORTING CLUB. KINETIC PRESTIGE ASSURED.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-10 font-['Space_Grotesk'] uppercase text-[10px] tracking-widest font-bold">
+<a class="text-white/30 hover:text-[#66df75] transition-opacity underline decoration-[#ff3e3b] decoration-2 underline-offset-4" href="#">PRIVACY POLICY</a>
+<a class="text-white/30 hover:text-[#66df75] transition-opacity" href="#">TERMS OF SERVICE</a>
+<a class="text-white/30 hover:text-[#66df75] transition-opacity" href="#">CONTACT US</a>
+<a class="text-white/30 hover:text-[#66df75] transition-opacity" href="#">CAREERS</a>
+<a class="text-white/30 hover:text-[#66df75] transition-opacity" href="#">SPONSORSHIP</a>
+</div>
+<div class="flex gap-6">
+<a class="text-white/30 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">public</span>
+</a>
+<a class="text-white/30 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">sports_basketball</span>
+</a>
+<a class="text-white/30 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">groups</span>
+</a>
+</div>
+</div>
+</footer>
+</body></html>
