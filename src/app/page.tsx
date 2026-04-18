@@ -2,9 +2,10 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Hero from "@/components/home/Hero";
 import About from "@/components/home/About";
+import MissionVision from "@/components/home/MissionVision";
 import BoardOfDirectors from "@/components/home/BoardOfDirectors";
 import Teams from "@/components/home/Teams";
-import Players from "@/components/home/Players";
+import SummerCamp from "@/components/home/SummerCamp";
 import EliteStories from "@/components/home/EliteStories";
 import Sponsors from "@/components/home/Sponsors";
 import ActionGallery from "@/components/home/ActionGallery";
@@ -17,9 +18,10 @@ export default function Home() {
       <main className="flex-grow">
         <Hero />
         <About />
+        <MissionVision />
         <BoardOfDirectors />
         <Teams />
-        <Players />
+        <SummerCamp />
         <EliteStories />
         <Sponsors />
         <ActionGallery />
