@@ -39,7 +39,7 @@ const BoardOfDirectors = () => {
     {
       name: 'AKM MOIN-UL HAQUE OPU',
       role: 'DIRECTOR, PLANNING AND STRATEGY',
-      img: '/assets/founders/opu.jpg',
+      img: '/assets/founders/opu2.jpg',
       resc_id: '2023-006',
       jersey_name: 'MOIN-UL',
       jersey_no: '—',

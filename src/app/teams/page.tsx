@@ -86,7 +86,7 @@ const members = [
   {
     id: '2023-006',
     name: 'Moinul Haque Opu',
-    img: '/assets/founders/opu.jpg',
+    img: '/assets/founders/opu2.jpg',
   },
   {
     id: '2023-007',
