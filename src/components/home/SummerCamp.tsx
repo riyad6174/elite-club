@@ -50,7 +50,7 @@ const SummerCamp = () => {
             className="space-y-6"
           >
             <p className="text-on-surface-variant text-lg md:text-xl font-light leading-relaxed">
-              In 2024, Regina Elite Sporting Club proudly launched its first-ever <strong className="text-white">Kids&apos; Summer Soccer Camp</strong> — a collaborative initiative with the Royal Bengal Soccer Association (RBSA), affiliated with the University of Regina.
+              In 2024, Regina Elites Sporting Club proudly launched its first-ever <strong className="text-white">Kids&apos; Summer Soccer Camp</strong> — a collaborative initiative with the Royal Bengal Soccer Association (RBSA), affiliated with the University of Regina.
             </p>
             <p className="text-on-surface-variant/70 text-base md:text-lg font-light leading-relaxed">
               Over two months from July to August, 32 children aged 6 to 14 participated in twice-weekly sessions every Tuesday and Thursday. Each child received exclusive summer camp jerseys — generously sponsored by <strong className="text-white">Tandoor Kabab</strong>.

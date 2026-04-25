@@ -33,7 +33,7 @@ const allStories = [
     author: "RESC DIRECTORS",
     images: ["/assets/stories/annual-tournaments.png", "/assets/stories/annual-tournaments-2.png"],
     body: "The 2024 Summer Tournament featured special guest MLA Noor Burki, Minister of Immigration and Career Training, as keynote speaker. Teams competed with enthusiasm, and attendees enjoyed delicious food, prize giveaways, and a strong sense of community.",
-    quote: "Elite Sporting Club is doing more than playing soccer — it's building bridges between communities.",
+    quote: "Regina Elites Sporting Club is doing more than playing soccer — it's building bridges between communities.",
     quoteBy: "Noor Burki, MLA Regina Coronation Park",
   },
   {

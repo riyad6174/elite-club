@@ -43,7 +43,7 @@ const About = () => {
             className="space-y-6 md:space-y-8 lg:pt-20"
           >
             <p className="text-on-surface-variant text-lg md:text-xl font-light leading-relaxed max-w-xl">
-              Founded in Regina, Saskatchewan, Elites Sporting Club is a non-profit community sports organization that goes far beyond the boundaries of a traditional club. We bring together members from diverse backgrounds — Bangladeshi, Chinese, Nigerian, Pakistani, and more — united by a shared love for soccer and community.
+              Founded in Regina, Saskatchewan, Regina Elites Sporting Club is a non-profit community sports organization that goes far beyond the boundaries of a traditional club. We bring together members from diverse backgrounds — Bangladeshi, Chinese, Nigerian, Pakistani, and more — united by a shared love for soccer and community.
             </p>
             <p className="text-on-surface-variant/70 text-base md:text-lg font-light leading-relaxed max-w-xl">
               From outdoor summer matches to indoor winter games, weekend breakfast gatherings, and vibrant cultural celebrations — RESC is a place where people come together, build friendships, and feel at home. Being a member isn't just about playing soccer — it's about being part of something bigger.

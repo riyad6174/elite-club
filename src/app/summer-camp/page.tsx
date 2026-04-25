@@ -71,7 +71,7 @@ export default function SummerCampPage() {
                   <span className="kinetic-text">NEXT GENERATION</span>
                 </h2>
                 <p className="text-on-surface-variant text-lg font-light leading-relaxed">
-                  In 2024, <strong className="text-white">Regina Elite Sporting Club</strong> proudly expanded its impact by hosting its first-ever Kids&apos; Summer Camp — a collaborative initiative with the{" "}
+                  In 2024, <strong className="text-white">Regina Elites Sporting Club</strong> proudly expanded its impact by hosting its first-ever Kids&apos; Summer Camp — a collaborative initiative with the{" "}
                   <strong className="text-white">Royal Bengal Soccer Association (RBSA)</strong>, an internationally recognized sports organization affiliated with the University of Regina.
                 </p>
                 <p className="text-on-surface-variant/70 text-base font-light leading-relaxed">
@@ -119,7 +119,7 @@ export default function SummerCampPage() {
                   <span className="kinetic-text">SUCCESS</span>
                 </h2>
                 <p className="text-on-surface-variant text-lg font-light leading-relaxed">
-                  To make the event even more exciting, <strong className="text-white">Regina Elite Sporting Club provided exclusive Kids Summer Camp jerseys</strong> for all young participants — bright, high-quality kits that sparked team spirit and pride.
+                  To make the event even more exciting, <strong className="text-white">Regina Elites Sporting Club provided exclusive Kids Summer Camp jerseys</strong> for all young participants — bright, high-quality kits that sparked team spirit and pride.
                 </p>
                 <p className="text-on-surface-variant/70 text-base font-light leading-relaxed">
                   These jerseys were <strong className="text-white">generously sponsored by Tandoor Kabab</strong> — a well-known local restaurant celebrated for its delicious food and support of community events.
@@ -171,22 +171,49 @@ export default function SummerCampPage() {
                 <h2 className="text-white font-headline font-black text-4xl md:text-5xl uppercase tracking-tighter leading-none">IN THE FIELD</h2>
               </div>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+
+            {/* Featured actual camp photos */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <div className="aspect-video overflow-hidden group relative">
+                <img
+                  src="/assets/stories/kids-summer-soccer-camp-2024.png"
+                  alt="Kids Summer Soccer Camp 2024"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background/80 to-transparent">
+                  <p className="text-white font-headline font-bold text-xs uppercase tracking-widest">Summer Camp 2024 — Match Day</p>
+                </div>
+              </div>
+              <div className="aspect-video overflow-hidden group relative">
+                <img
+                  src="/assets/stories/kids-summer-soccer-camp-2024-2.png"
+                  alt="Kids Summer Soccer Camp 2024 — Training"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background/80 to-transparent">
+                  <p className="text-white font-headline font-bold text-xs uppercase tracking-widest">Summer Camp 2024 — Training Session</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Supporting youth soccer images */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
-                "https://images.pexels.com/photos/1171084/pexels-photo-1171084.jpeg?auto=compress&cs=tinysrgb&w=600",
-                "https://images.pexels.com/photos/2068975/pexels-photo-2068975.jpeg?auto=compress&cs=tinysrgb&w=600",
-                "https://images.pexels.com/photos/3621104/pexels-photo-3621104.jpeg?auto=compress&cs=tinysrgb&w=600",
-                "https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=600",
-                "https://images.pexels.com/photos/114296/pexels-photo-114296.jpeg?auto=compress&cs=tinysrgb&w=600",
-                "https://images.pexels.com/photos/3894379/pexels-photo-3894379.jpeg?auto=compress&cs=tinysrgb&w=600",
-              ].map((src, idx) => (
+                { src: "https://images.pexels.com/photos/3976492/pexels-photo-3976492.jpeg?auto=compress&cs=tinysrgb&w=600", alt: "Kids training on the field" },
+                { src: "https://images.pexels.com/photos/4762434/pexels-photo-4762434.jpeg?auto=compress&cs=tinysrgb&w=600", alt: "Youth soccer practice" },
+                { src: "https://images.pexels.com/photos/3621109/pexels-photo-3621109.jpeg?auto=compress&cs=tinysrgb&w=600", alt: "Young players in action" },
+                { src: "https://images.pexels.com/photos/9654060/pexels-photo-9654060.jpeg?auto=compress&cs=tinysrgb&w=600", alt: "Kids celebrating a goal" },
+              ].map((img, idx) => (
                 <div key={idx} className="aspect-square overflow-hidden group relative">
                   <img
-                    src={src}
-                    alt={`Camp moment ${idx + 1}`}
+                    src={img.src}
+                    alt={img.alt}
                     className="w-full h-full object-cover group-hover:scale-110 transition-all duration-700"
                   />
                   <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                  <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                    <p className="text-white text-[10px] font-bold uppercase tracking-widest">{img.alt}</p>
+                  </div>
                 </div>
               ))}
             </div>
