@@ -134,6 +134,11 @@ const members = [
     img: '/assets/members/2023-015_KazI Zahid Ahmed.jpg',
   },
   {
+    id: '2023-016',
+    name: 'Md Sohel Howlader',
+    img: '/assets/members/2023-016_ Md Sohel Howlader.png',
+  },
+  {
     id: '2023-017',
     name: 'Jianxin Zhu Alvin',
     img: '/assets/members/2023-017_Jianxin Zhu Alvin.JPG',
@@ -147,6 +152,11 @@ const members = [
     id: '2023-019',
     name: 'Olufemi',
     img: '/assets/members/2023-019_Olufemi.jpeg',
+  },
+  {
+    id: '2023-020',
+    name: 'Noor Burki',
+    img: '/assets/members/2023-20_ Noor Burki.jpg',
   },
   {
     id: '2023-022',
@@ -179,6 +189,16 @@ const members = [
     img: '/assets/members/2023-029_Sameem Arefin.jpg',
   },
   {
+    id: '2023-031',
+    name: 'Abdul Hie Even',
+    img: '/assets/members/Abdul Hie Even. 2023-031.png',
+  },
+  {
+    id: '2023-032',
+    name: 'Mohammad Zawad Bin Habib',
+    img: '/assets/members/2023-032_Mohammad Zawad Bin Habib.jpeg',
+  },
+  {
     id: '2023-033',
     name: 'Mohammad Mahmud Hasan',
     img: '/assets/members/2023-033_Mohammad Mahmud Hasan.jpg',
@@ -194,9 +214,39 @@ const members = [
     img: '/assets/members/2023-035_Jobayed Hasan.jpeg',
   },
   {
+    id: '2023-038',
+    name: 'Md Emran Hossain Khan',
+    img: '/assets/members/2023-038_Md Emran Hossain Khan.jpeg',
+  },
+  {
+    id: '2023-040',
+    name: 'Arpon Khan',
+    img: '/assets/members/2023-040_Arpon Khan.jpeg',
+  },
+  {
     id: '2023-041',
     name: 'Md Adnan Adib',
     img: '/assets/members/2023-041_Md Adnan Adib.jpg',
+  },
+  {
+    id: '2023-044',
+    name: 'Ayan Howlader',
+    img: '/assets/members/2023-044_Ayan Howlader.JPG',
+  },
+  {
+    id: '2023-046',
+    name: 'Ruhan Uddin',
+    img: '/assets/members/2023-046_Ruhan Uddin.jpeg',
+  },
+  {
+    id: '2023-047',
+    name: 'Sazzad Enam',
+    img: '/assets/members/2023-047_Sazzad Enam.jpeg',
+  },
+  {
+    id: '2023-049',
+    name: 'Rasel Ahamed',
+    img: '/assets/members/2023-049_Rasel Ahamed.jpeg',
   },
   {
     id: '2023-051',
@@ -204,9 +254,19 @@ const members = [
     img: '/assets/members/2023-051_Nafis Ahmed.jpeg',
   },
   {
+    id: '2023-053',
+    name: 'Hamze Beshir',
+    img: '/assets/members/2023-053_Hamze Beshir.jpeg',
+  },
+  {
     id: '2023-055',
     name: 'Arafin Islam Jony',
     img: '/assets/members/2023-055_Arafin Islam Jony.jpg',
+  },
+  {
+    id: '2023-060',
+    name: 'Aqib Khan',
+    img: '/assets/members/2023-060_ Aqib Khan.JPG',
   },
 ];
 
