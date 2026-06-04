@@ -1,15 +1,70 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import SummerCampValues from "@/components/home/SummerCampValues";
+import { connectToDatabase } from "@/lib/mongodb";
 
-const highlights = [
-  { number: "32", label: "YOUNG ATHLETES" },
-  { number: "2", label: "MONTHS OF PLAY" },
-  { number: "6–14", label: "AGES WELCOME" },
-  { number: "2x", label: "SESSIONS / WEEK" },
-];
+export const revalidate = 60;
 
-export default function SummerCampPage() {
+const defaultCamp = {
+  title: "KIDS' SUMMER CAMP",
+  description: "Empowering the next generation of athletes and community leaders through the beautiful game.",
+  dates: "July – August",
+  ageGroup: "6–14 Years",
+  fees: "Free (Sponsored)",
+  location: "Regina Fields / University of Regina",
+  registrationLink: "https://www.facebook.com/groups/574758087066199",
+  bannerImage: "",
+  campDetails: "",
+  images: [
+    { src: "/assets/stories/kids-summer-soccer-camp-2024.png", alt: "Summer Camp — Match Day" },
+    { src: "/assets/stories/kids-summer-soccer-camp-2024-2.png", alt: "Summer Camp — Training Session" },
+  ],
+  announcements: [
+    { date: "June 2026", text: "Registrations for the upcoming summer season are now open! Space is limited." },
+  ],
+  schedule: [
+    { title: "Tuesday Sessions", date: "Every Tuesday", time: "6:00 PM - 8:00 PM" },
+    { title: "Thursday Sessions", date: "Every Thursday", time: "6:00 PM - 8:00 PM" },
+  ],
+};
+
+export default async function SummerCampPage() {
+  let camp = defaultCamp;
+
+  try {
+    const { db } = await connectToDatabase();
+    const dbCamp = await db.collection("kids_camp").findOne({});
+    if (dbCamp) {
+      camp = {
+        title: dbCamp.title || defaultCamp.title,
+        description: dbCamp.description || defaultCamp.description,
+        dates: dbCamp.dates || defaultCamp.dates,
+        ageGroup: dbCamp.ageGroup || defaultCamp.ageGroup,
+        fees: dbCamp.fees || defaultCamp.fees,
+        location: dbCamp.location || defaultCamp.location,
+        registrationLink: dbCamp.registrationLink || defaultCamp.registrationLink,
+        bannerImage: dbCamp.bannerImage || "",
+        campDetails: dbCamp.campDetails || "",
+        images: Array.isArray(dbCamp.images) && dbCamp.images.length > 0 ? dbCamp.images : defaultCamp.images,
+        announcements: Array.isArray(dbCamp.announcements) ? dbCamp.announcements : [],
+        schedule: Array.isArray(dbCamp.schedule) ? dbCamp.schedule : [],
+      };
+    }
+  } catch (error) {
+    console.error("Failed to load kids camp data from MongoDB, using fallback:", error);
+  }
+
+  const highlights = [
+    { number: "32", label: "YOUNG ATHLETES" },
+    { number: "2", label: "MONTHS OF PLAY" },
+    { number: camp.ageGroup.replace(/\s*(years|old)\s*/gi, "").trim(), label: "AGES WELCOME" },
+    { number: "2x", label: "SESSIONS / WEEK" },
+  ];
+
+  const featuredImages = camp.images.slice(0, 2);
+  const gridImages = camp.images.slice(2, 6);
+  const heroBg = camp.bannerImage || camp.images[0]?.src || "";
+
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
@@ -18,12 +73,14 @@ export default function SummerCampPage() {
         {/* Hero Section */}
         <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-background">
           <div className="absolute inset-0 z-0">
-            <img
-              src="https://images.pexels.com/photos/1171084/pexels-photo-1171084.jpeg?auto=compress&cs=tinysrgb&w=1600"
-              alt="Kids playing at summer camp"
-              className="w-full h-full object-cover opacity-30"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent"></div>
+            {heroBg && (
+              <img
+                src={heroBg}
+                alt="Kids playing at summer camp"
+                className="w-full h-full object-cover opacity-30"
+              />
+            )}
+            <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent" />
           </div>
           <div className="container mx-auto px-6 md:px-12 relative z-10 py-24">
             <span className="text-primary font-headline font-bold tracking-[0.5em] text-xs uppercase block mb-6">
@@ -34,9 +91,17 @@ export default function SummerCampPage() {
               <span className="kinetic-text">SUMMER</span><br />
               CAMP
             </h1>
-            <p className="text-on-surface-variant text-lg md:text-xl max-w-2xl font-light leading-relaxed">
-              Empowering the next generation of athletes and community leaders through the beautiful game.
+            <p className="text-on-surface-variant text-lg md:text-xl max-w-2xl font-light leading-relaxed mb-10">
+              {camp.description}
             </p>
+            <a
+              href={camp.registrationLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-gradient-to-r from-primary to-on-primary-container text-on-primary-fixed font-headline font-bold px-8 py-4 rounded-sm text-sm tracking-[0.2em] uppercase hover:opacity-90 transition-opacity"
+            >
+              REGISTER FOR CAMP
+            </a>
           </div>
         </section>
 
@@ -58,10 +123,31 @@ export default function SummerCampPage() {
           </div>
         </section>
 
+        {/* Announcements */}
+        {camp.announcements.length > 0 && (
+          <section className="pt-24 bg-background">
+            <div className="container mx-auto px-6 md:px-12">
+              <div className="glass-panel border-l-4 border-tertiary p-6 md:p-8 rounded-sm">
+                <span className="text-tertiary font-headline font-bold tracking-widest text-xs uppercase block mb-3">
+                  CAMP ANNOUNCEMENT & UPDATES
+                </span>
+                <div className="space-y-4">
+                  {camp.announcements.map((ann, idx) => (
+                    <div key={idx} className="text-white/80 font-light text-base leading-relaxed">
+                      <span className="text-primary font-bold text-xs uppercase tracking-wider block md:inline md:mr-3">{ann.date}</span>
+                      {ann.text}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* About the Camp */}
-        <section className="py-24 md:py-40 bg-background">
+        <section className="py-24 md:py-36 bg-background">
           <div className="container mx-auto px-6 md:px-12">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
               <div className="space-y-8">
                 <span className="text-tertiary font-headline font-bold tracking-widest text-xs uppercase block">
                   ABOUT THE CAMP
@@ -75,63 +161,99 @@ export default function SummerCampPage() {
                   <strong className="text-white">Royal Bengal Soccer Association (RBSA)</strong>, an internationally recognized sports organization affiliated with the University of Regina.
                 </p>
                 <p className="text-on-surface-variant/70 text-base font-light leading-relaxed">
-                  Over the course of two months from <strong className="text-white">July to August</strong>, 32 children aged 6 to 14 enthusiastically participated in sessions held <strong className="text-white">twice a week — every Tuesday and Thursday</strong> throughout the summer.
+                  Over the course of two months, children enthusiastically participate in training sessions designed to build sportsmanship, discipline, and healthy exercise habits.
                 </p>
                 <p className="text-on-surface-variant/70 text-base font-light leading-relaxed">
-                  The sessions were organized and managed by members of RBSA and RESC, who brought both experience and passion to every training and matchday.
+                  The sessions are organized and managed by members of RBSA and RESC, who bring both experience and passion to every training and matchday.
                 </p>
               </div>
 
-              <div className="relative">
-                <div className="aspect-[4/3] overflow-hidden clip-slant">
-                  <img
-                    src="https://images.pexels.com/photos/1171084/pexels-photo-1171084.jpeg?auto=compress&cs=tinysrgb&w=800"
-                    alt="Kids at summer camp"
-                    className="w-full h-full object-cover"
+              {/* Camp Metadata Card */}
+              <div className="glass-panel border border-outline-variant/15 p-8 rounded-sm space-y-6 relative">
+                <div className="absolute top-0 left-0 bottom-0 w-[4px] bg-primary" />
+                <h3 className="text-white font-headline font-black text-xl uppercase tracking-tighter pb-4 border-b border-outline-variant/10">CAMP METADATA</h3>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center py-2 border-b border-outline-variant/5">
+                    <span className="text-white/40 text-xs font-bold uppercase tracking-widest">DATES</span>
+                    <span className="text-white text-sm font-semibold">{camp.dates}</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-outline-variant/5">
+                    <span className="text-white/40 text-xs font-bold uppercase tracking-widest">AGES</span>
+                    <span className="text-white text-sm font-semibold">{camp.ageGroup}</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-outline-variant/5">
+                    <span className="text-white/40 text-xs font-bold uppercase tracking-widest">FEES</span>
+                    <span className="text-white text-sm font-semibold">{camp.fees}</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2">
+                    <span className="text-white/40 text-xs font-bold uppercase tracking-widest">LOCATION</span>
+                    <span className="text-white text-sm font-semibold text-right max-w-[200px]">{camp.location}</span>
+                  </div>
+                </div>
+                <a
+                  href={camp.registrationLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full text-center block bg-surface-bright/20 border border-outline-variant/15 text-white hover:bg-surface-bright font-headline font-bold py-3 rounded-sm text-xs tracking-widest uppercase transition-colors"
+                >
+                  JOIN THIS SESSION
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Camp Details (rich text) */}
+        {camp.campDetails && (
+          <section className="py-24 bg-surface-container">
+            <div className="container mx-auto px-6 md:px-12">
+              <div className="mb-12">
+                <span className="text-tertiary font-headline font-bold tracking-widest text-xs uppercase block mb-3">PROGRAMME INFORMATION</span>
+                <h2 className="text-white font-headline font-black text-4xl md:text-5xl uppercase tracking-tighter leading-none">CAMP DETAILS</h2>
+              </div>
+              <div className="max-w-4xl">
+                {camp.campDetails.includes("<") ? (
+                  <div
+                    className="story-body"
+                    dangerouslySetInnerHTML={{ __html: camp.campDetails }}
                   />
-                </div>
-                <div className="absolute -bottom-6 -left-6 bg-surface-container-high border border-outline-variant/20 p-6 hidden md:block">
-                  <p className="text-tertiary font-headline font-black text-3xl leading-none">JULY – AUG</p>
-                  <p className="text-white/60 font-bold text-xs tracking-widest uppercase mt-1">SUMMER 2024</p>
-                </div>
+                ) : (
+                  <p className="text-on-surface-variant text-lg font-light leading-relaxed whitespace-pre-line">
+                    {camp.campDetails}
+                  </p>
+                )}
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
-        {/* Jerseys & Sponsor */}
-        <section className="py-24 bg-surface-container">
-          <div className="container mx-auto px-6 md:px-12">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-              <div className="relative aspect-[4/3] overflow-hidden clip-slant">
-                <img
-                  src="https://images.pexels.com/photos/3621104/pexels-photo-3621104.jpeg?auto=compress&cs=tinysrgb&w=800"
-                  alt="Summer Camp Jersey"
-                  className="w-full h-full object-cover"
-                />
+        {/* Weekly Schedule */}
+        {camp.schedule.length > 0 && (
+          <section className="py-24 bg-surface-container-lowest">
+            <div className="container mx-auto px-6 md:px-12">
+              <div className="mb-16">
+                <span className="text-tertiary font-headline font-bold tracking-widest text-xs uppercase block mb-3">ROUTINE WORK</span>
+                <h2 className="text-white font-headline font-black text-4xl md:text-6xl uppercase tracking-tighter leading-none">WEEKLY SCHEDULE</h2>
               </div>
-              <div className="space-y-6">
-                <span className="text-tertiary font-headline font-bold tracking-widest text-xs uppercase block">
-                  JERSEYS & SPONSORSHIP
-                </span>
-                <h2 className="text-white font-headline font-black text-4xl md:text-5xl uppercase tracking-tighter leading-none">
-                  DRESSED FOR<br />
-                  <span className="kinetic-text">SUCCESS</span>
-                </h2>
-                <p className="text-on-surface-variant text-lg font-light leading-relaxed">
-                  To make the event even more exciting, <strong className="text-white">Regina Elites Sporting Club provided exclusive Kids Summer Camp jerseys</strong> for all young participants — bright, high-quality kits that sparked team spirit and pride.
-                </p>
-                <p className="text-on-surface-variant/70 text-base font-light leading-relaxed">
-                  These jerseys were <strong className="text-white">generously sponsored by Tandoor Kabab</strong> — a well-known local restaurant celebrated for its delicious food and support of community events.
-                </p>
-                <div className="flex items-center gap-4 pt-4 border-t border-outline-variant/10">
-                  <span className="text-white/40 text-xs font-bold tracking-widest uppercase">SPONSORED BY</span>
-                  <span className="text-white font-headline font-bold text-lg uppercase tracking-tight">TANDOOR KABAB</span>
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {camp.schedule.map((session, idx) => (
+                  <div key={idx} className="bg-surface-container p-6 rounded-sm border border-outline-variant/10 relative">
+                    <div className="absolute left-0 top-0 bottom-0 w-[4px] bg-tertiary" />
+                    <div className="flex justify-between items-start gap-4">
+                      <div>
+                        <h4 className="text-white font-headline font-black text-lg uppercase tracking-tight">{session.title}</h4>
+                        <p className="text-on-surface-variant text-xs mt-1">{session.date}</p>
+                      </div>
+                      <span className="text-primary font-headline font-bold text-xs uppercase tracking-wider bg-primary/10 px-3 py-1 rounded-sm flex-shrink-0">
+                        {session.time}
+                      </span>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* Core Values */}
         <section className="py-24 md:py-40 bg-background">
@@ -148,7 +270,7 @@ export default function SummerCampPage() {
           </div>
         </section>
 
-        {/* Quote Section */}
+        {/* Quote */}
         <section className="py-24 bg-surface-container-low">
           <div className="container mx-auto px-6 md:px-12 text-center max-w-4xl">
             <blockquote className="space-y-8">
@@ -163,62 +285,53 @@ export default function SummerCampPage() {
         </section>
 
         {/* Gallery Preview */}
-        <section className="py-24 bg-background">
-          <div className="container mx-auto px-6 md:px-12">
-            <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-              <div>
-                <span className="text-tertiary font-headline font-bold tracking-widest text-xs uppercase block mb-2">CAMP MOMENTS</span>
-                <h2 className="text-white font-headline font-black text-4xl md:text-5xl uppercase tracking-tighter leading-none">IN THE FIELD</h2>
+        {(featuredImages.length > 0 || gridImages.length > 0) && (
+          <section className="py-24 bg-background">
+            <div className="container mx-auto px-6 md:px-12">
+              <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                <div>
+                  <span className="text-tertiary font-headline font-bold tracking-widest text-xs uppercase block mb-2">CAMP MOMENTS</span>
+                  <h2 className="text-white font-headline font-black text-4xl md:text-5xl uppercase tracking-tighter leading-none">IN THE FIELD</h2>
+                </div>
               </div>
-            </div>
 
-            {/* Featured actual camp photos */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-              <div className="aspect-video overflow-hidden group relative">
-                <img
-                  src="/assets/stories/kids-summer-soccer-camp-2024.png"
-                  alt="Kids Summer Soccer Camp 2024"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background/80 to-transparent">
-                  <p className="text-white font-headline font-bold text-xs uppercase tracking-widest">Summer Camp 2024 — Match Day</p>
+              {featuredImages.length > 0 && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                  {featuredImages.map((img, idx) => (
+                    <div key={idx} className="aspect-video overflow-hidden group relative">
+                      <img
+                        src={img.src}
+                        alt={img.alt}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
+                      <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background/80 to-transparent">
+                        <p className="text-white font-headline font-bold text-xs uppercase tracking-widest">{img.alt}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              </div>
-              <div className="aspect-video overflow-hidden group relative">
-                <img
-                  src="/assets/stories/kids-summer-soccer-camp-2024-2.png"
-                  alt="Kids Summer Soccer Camp 2024 — Training"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background/80 to-transparent">
-                  <p className="text-white font-headline font-bold text-xs uppercase tracking-widest">Summer Camp 2024 — Training Session</p>
-                </div>
-              </div>
-            </div>
+              )}
 
-            {/* Supporting youth soccer images */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {[
-                { src: "https://images.pexels.com/photos/3976492/pexels-photo-3976492.jpeg?auto=compress&cs=tinysrgb&w=600", alt: "Kids training on the field" },
-                { src: "https://images.pexels.com/photos/4762434/pexels-photo-4762434.jpeg?auto=compress&cs=tinysrgb&w=600", alt: "Youth soccer practice" },
-                { src: "https://images.pexels.com/photos/3621109/pexels-photo-3621109.jpeg?auto=compress&cs=tinysrgb&w=600", alt: "Young players in action" },
-                { src: "https://images.pexels.com/photos/9654060/pexels-photo-9654060.jpeg?auto=compress&cs=tinysrgb&w=600", alt: "Kids celebrating a goal" },
-              ].map((img, idx) => (
-                <div key={idx} className="aspect-square overflow-hidden group relative">
-                  <img
-                    src={img.src}
-                    alt={img.alt}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-all duration-700"
-                  />
-                  <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
-                  <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
-                    <p className="text-white text-[10px] font-bold uppercase tracking-widest">{img.alt}</p>
-                  </div>
+              {gridImages.length > 0 && (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {gridImages.map((img, idx) => (
+                    <div key={idx} className="aspect-square overflow-hidden group relative">
+                      <img
+                        src={img.src}
+                        alt={img.alt}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-all duration-700"
+                      />
+                      <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                      <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                        <p className="text-white text-[10px] font-bold uppercase tracking-widest">{img.alt}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              )}
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
       </main>
       <Footer />
