@@ -290,8 +290,8 @@ export default async function SummerCampPage() {
             <div className="container mx-auto px-6 md:px-12">
               <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
                 <div>
-                  <span className="text-tertiary font-headline font-bold tracking-widest text-xs uppercase block mb-2">CAMP MOMENTS</span>
-                  <h2 className="text-white font-headline font-black text-4xl md:text-5xl uppercase tracking-tighter leading-none">IN THE FIELD</h2>
+                  <span className="text-tertiary font-headline font-bold tracking-widest text-xs uppercase block mb-2">PHOTO GALLERY</span>
+                  <h2 className="text-white font-headline font-black text-4xl md:text-5xl uppercase tracking-tighter leading-none">CAMP HIGHLIGHTS</h2>
                 </div>
               </div>
 
