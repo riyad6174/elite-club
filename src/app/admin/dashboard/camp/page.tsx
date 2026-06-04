@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useToast } from "@/components/admin/Toast";
 import RichTextEditor from "@/components/admin/RichTextEditor";
 import MediaDrawer from "@/components/admin/MediaDrawer";
 
@@ -40,8 +41,8 @@ export default function KidsCampManagerPage() {
   const [campData, setCampData] = useState<KidsCamp | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [message, setMessage] = useState({ type: "" as "success" | "error" | "", text: "" });
   const [mediaDrawerOpen, setMediaDrawerOpen] = useState(false);
+  const toast = useToast();
 
   useEffect(() => {
     fetchCampData();
@@ -58,16 +59,12 @@ export default function KidsCampManagerPage() {
       });
     } catch (err) {
       console.error("Error fetching camp details:", err);
-      showBanner("error", "Failed to fetch camp details from database");
+      toast("error", "Failed to fetch camp details from database");
     } finally {
       setLoading(false);
     }
   };
 
-  const showBanner = (type: "success" | "error", text: string) => {
-    setMessage({ type, text });
-    setTimeout(() => setMessage({ type: "", text: "" }), 5000);
-  };
 
   const handleUpdateCamp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -80,10 +77,10 @@ export default function KidsCampManagerPage() {
         body: JSON.stringify(campData),
       });
       if (!res.ok) throw new Error("Failed to update camp details");
-      showBanner("success", "Kids Camp details saved successfully");
+      toast("success", "Kids Camp details saved successfully");
       fetchCampData();
     } catch (err: any) {
-      showBanner("error", err.message);
+      toast("error", err.message);
     } finally {
       setSaving(false);
     }
@@ -107,14 +104,14 @@ export default function KidsCampManagerPage() {
 
       if (target === "banner") {
         setCampData({ ...campData, bannerImage: data.url });
-        showBanner("success", "Banner uploaded. Click Save to persist.");
+        toast("success", "Banner uploaded. Click Save to persist.");
       } else {
         const newImages = [...campData.images, { src: data.url, alt: "Camp field photo" }];
         setCampData({ ...campData, images: newImages });
-        showBanner("success", "Camp image added. Click Save to persist.");
+        toast("success", "Camp image added. Click Save to persist.");
       }
     } catch (err: any) {
-      showBanner("error", err.message);
+      toast("error", err.message);
     } finally {
       setSaving(false);
       e.target.value = "";
@@ -133,18 +130,6 @@ export default function KidsCampManagerPage() {
 
   return (
     <div className="space-y-8">
-      {/* Banner alerts */}
-      {message.text && (
-        <div
-          className={`p-4 border-l-4 rounded-sm text-sm font-semibold transition-all ${
-            message.type === "success"
-              ? "bg-tertiary-container/30 border-tertiary text-white"
-              : "bg-error-container/30 border-error text-white"
-          }`}
-        >
-          {message.text}
-        </div>
-      )}
 
       <form onSubmit={handleUpdateCamp} className="space-y-12">
         {/* Header */}

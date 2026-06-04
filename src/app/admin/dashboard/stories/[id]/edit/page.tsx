@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useToast } from "@/components/admin/Toast";
 import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import RichTextEditor from "@/components/admin/RichTextEditor";
@@ -27,8 +28,8 @@ export default function EditStoryPage() {
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [message, setMessage] = useState({ type: "" as "success" | "error" | "", text: "" });
   const [mediaDrawerOpen, setMediaDrawerOpen] = useState(false);
+  const toast = useToast();
   const [existingCategories, setExistingCategories] = useState<string[]>([]);
 
   const [form, setForm] = useState<Story>({
@@ -73,16 +74,12 @@ export default function EditStoryPage() {
       setForm(data);
     } catch (err) {
       console.error("Error fetching story:", err);
-      showBanner("error", "Failed to load story. It may not exist.");
+      toast("error", "Failed to load story. It may not exist.");
     } finally {
       setLoading(false);
     }
   };
 
-  const showBanner = (type: "success" | "error", text: string) => {
-    setMessage({ type, text });
-    setTimeout(() => setMessage({ type: "", text: "" }), 5000);
-  };
 
   const handleCoverUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -101,9 +98,9 @@ export default function EditStoryPage() {
       if (!res.ok) throw new Error(data.error || "Upload failed");
 
       setForm({ ...form, images: [data.url] });
-      showBanner("success", "Cover image uploaded");
+      toast("success", "Cover image uploaded");
     } catch (err: any) {
-      showBanner("error", err.message);
+      toast("error", err.message);
     } finally {
       setSaving(false);
       e.target.value = "";
@@ -122,10 +119,10 @@ export default function EditStoryPage() {
       });
       if (!res.ok) throw new Error("Failed to update story");
 
-      showBanner("success", "Story updated successfully!");
+      toast("success", "Story updated successfully!");
       setTimeout(() => router.push("/admin/dashboard/stories"), 1000);
     } catch (err: any) {
-      showBanner("error", err.message);
+      toast("error", err.message);
       setSaving(false);
     }
   };
@@ -140,18 +137,6 @@ export default function EditStoryPage() {
 
   return (
     <div className="space-y-8">
-      {/* Banner */}
-      {message.text && (
-        <div
-          className={`p-4 border-l-4 rounded-sm text-sm font-semibold transition-all ${
-            message.type === "success"
-              ? "bg-tertiary-container/30 border-tertiary text-white"
-              : "bg-error-container/30 border-error text-white"
-          }`}
-        >
-          {message.text}
-        </div>
-      )}
 
       {/* Breadcrumb + Header */}
       <div className="flex items-center justify-between">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { useToast } from "@/components/admin/Toast";
 
 interface MediaItem {
   _id: string;
@@ -23,7 +24,7 @@ export default function MediaDrawer({ isOpen, onClose, onInsertUrl }: MediaDrawe
   const [uploading, setUploading] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
-  const [message, setMessage] = useState({ type: "" as "success" | "error" | "", text: "" });
+  const toast = useToast();
 
   const fetchMedia = useCallback(async () => {
     try {
@@ -45,10 +46,6 @@ export default function MediaDrawer({ isOpen, onClose, onInsertUrl }: MediaDrawe
     }
   }, [isOpen, fetchMedia]);
 
-  const showBanner = (type: "success" | "error", text: string) => {
-    setMessage({ type, text });
-    setTimeout(() => setMessage({ type: "", text: "" }), 3000);
-  };
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -66,10 +63,10 @@ export default function MediaDrawer({ isOpen, onClose, onInsertUrl }: MediaDrawe
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Upload failed");
 
-      showBanner("success", "Media uploaded successfully");
+      toast("success", "Media uploaded successfully");
       fetchMedia();
     } catch (err: any) {
-      showBanner("error", err.message);
+      toast("error", err.message);
     } finally {
       setUploading(false);
       e.target.value = "";
@@ -107,10 +104,10 @@ export default function MediaDrawer({ isOpen, onClose, onInsertUrl }: MediaDrawe
     try {
       const res = await fetch(`/api/admin/media/${item._id}`, { method: "DELETE" });
       if (!res.ok) throw new Error();
-      showBanner("success", "File deleted.");
+      toast("success", "File deleted.");
       setMedia((prev) => prev.filter((m) => m._id !== item._id));
     } catch {
-      showBanner("error", "Failed to delete file.");
+      toast("error", "Failed to delete file.");
     } finally {
       setDeletingId(null);
     }
@@ -177,18 +174,6 @@ export default function MediaDrawer({ isOpen, onClose, onInsertUrl }: MediaDrawe
           </p>
         </div>
 
-        {/* Banner */}
-        {message.text && (
-          <div
-            className={`mx-6 mt-3 p-3 border-l-4 rounded-sm text-xs font-semibold ${
-              message.type === "success"
-                ? "bg-tertiary-container/30 border-tertiary text-white"
-                : "bg-error-container/30 border-error text-white"
-            }`}
-          >
-            {message.text}
-          </div>
-        )}
 
         {/* Media Grid */}
         <div className="flex-1 overflow-y-auto p-6 space-y-3">

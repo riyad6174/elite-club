@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import { useToast } from "@/components/admin/Toast";
 
 interface MediaItem {
   _id: string;
@@ -23,7 +24,7 @@ export default function MediaLibraryPage() {
   const [uploading, setUploading] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
-  const [message, setMessage] = useState({ type: "" as "success" | "error" | "", text: "" });
+  const toast = useToast();
   const [search, setSearch] = useState("");
   const [lightbox, setLightbox] = useState<MediaItem | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -40,16 +41,12 @@ export default function MediaLibraryPage() {
       const data = await res.json();
       setMedia(Array.isArray(data) ? data : []);
     } catch {
-      showBanner("error", "Failed to load media library.");
+      toast("error", "Failed to load media library.");
     } finally {
       setLoading(false);
     }
   };
 
-  const showBanner = (type: "success" | "error", text: string) => {
-    setMessage({ type, text });
-    setTimeout(() => setMessage({ type: "", text: "" }), 4000);
-  };
 
   const handleUpload = async (files: FileList | null) => {
     if (!files || files.length === 0) return;
@@ -74,9 +71,9 @@ export default function MediaLibraryPage() {
     if (fileInputRef.current) fileInputRef.current.value = "";
 
     if (failed === 0) {
-      showBanner("success", `${uploaded} file${uploaded !== 1 ? "s" : ""} uploaded successfully.`);
+      toast("success", `${uploaded} file${uploaded !== 1 ? "s" : ""} uploaded successfully.`);
     } else {
-      showBanner("error", `${uploaded} uploaded, ${failed} failed.`);
+      toast("error", `${uploaded} uploaded, ${failed} failed.`);
     }
     fetchMedia();
   };
@@ -88,11 +85,11 @@ export default function MediaLibraryPage() {
     try {
       const res = await fetch(`/api/admin/media/${item._id}`, { method: "DELETE" });
       if (!res.ok) throw new Error();
-      showBanner("success", `"${item.filename}" deleted.`);
+      toast("success", `"${item.filename}" deleted.`);
       setMedia((prev) => prev.filter((m) => m._id !== item._id));
       if (lightbox?._id === item._id) setLightbox(null);
     } catch {
-      showBanner("error", "Failed to delete file. Please try again.");
+      toast("error", "Failed to delete file. Please try again.");
     } finally {
       setDeletingId(null);
     }
@@ -122,18 +119,6 @@ export default function MediaLibraryPage() {
 
   return (
     <div className="space-y-8">
-      {/* Banner */}
-      {message.text && (
-        <div
-          className={`p-4 border-l-4 rounded-sm text-sm font-semibold transition-all ${
-            message.type === "success"
-              ? "bg-tertiary-container/30 border-tertiary text-white"
-              : "bg-error-container/30 border-error text-white"
-          }`}
-        >
-          {message.text}
-        </div>
-      )}
 
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">

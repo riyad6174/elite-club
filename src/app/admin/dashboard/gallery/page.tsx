@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useToast } from "@/components/admin/Toast";
 
 interface ImageItem {
   src: string;
@@ -21,7 +22,7 @@ export default function GalleryManagerPage() {
   const [albums, setAlbums] = useState<Album[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [message, setMessage] = useState({ type: "" as "success" | "error" | "", text: "" });
+  const toast = useToast();
 
   // Editor Modal States
   const [editingAlbum, setEditingAlbum] = useState<Album | null>(null);
@@ -45,16 +46,12 @@ export default function GalleryManagerPage() {
       setAlbums(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Error fetching albums:", err);
-      showBanner("error", "Failed to fetch albums from database");
+      toast("error", "Failed to fetch albums from database");
     } finally {
       setLoading(false);
     }
   };
 
-  const showBanner = (type: "success" | "error", text: string) => {
-    setMessage({ type, text });
-    setTimeout(() => setMessage({ type: "", text: "" }), 5000);
-  };
 
   const handleCreateAlbum = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -68,12 +65,12 @@ export default function GalleryManagerPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to create album");
 
-      showBanner("success", "Album created successfully");
+      toast("success", "Album created successfully");
       setShowNewAlbumModal(false);
       setNewAlbum({ name: "", description: "", category: "sports" });
       fetchAlbums();
     } catch (err: any) {
-      showBanner("error", err.message);
+      toast("error", err.message);
     } finally {
       setSaving(false);
     }
@@ -90,11 +87,11 @@ export default function GalleryManagerPage() {
       });
       if (!res.ok) throw new Error("Failed to update album");
 
-      showBanner("success", "Album updated successfully");
+      toast("success", "Album updated successfully");
       setEditingAlbum(null);
       fetchAlbums();
     } catch (err: any) {
-      showBanner("error", err.message);
+      toast("error", err.message);
     } finally {
       setSaving(false);
     }
@@ -105,10 +102,10 @@ export default function GalleryManagerPage() {
     try {
       const res = await fetch(`/api/gallery/${id}`, { method: "DELETE" });
       if (!res.ok) throw new Error("Failed to delete album");
-      showBanner("success", "Album deleted");
+      toast("success", "Album deleted");
       fetchAlbums();
     } catch (err: any) {
-      showBanner("error", err.message);
+      toast("error", err.message);
     }
   };
 
@@ -131,9 +128,9 @@ export default function GalleryManagerPage() {
       const uploadedUrl = data.url;
       const newImages = [...editingAlbum.images, { src: uploadedUrl, alt: file.name.split(".")[0], title: "" }];
       setEditingAlbum({ ...editingAlbum, images: newImages });
-      showBanner("success", "Image uploaded. Click Save to persist changes.");
+      toast("success", "Image uploaded. Click Save to persist changes.");
     } catch (err: any) {
-      showBanner("error", err.message);
+      toast("error", err.message);
     } finally {
       setSaving(false);
       e.target.value = ""; // reset file input
@@ -164,7 +161,7 @@ export default function GalleryManagerPage() {
       });
       if (!res.ok) throw new Error("Reordering failed");
     } catch (err: any) {
-      showBanner("error", err.message);
+      toast("error", err.message);
       fetchAlbums(); // reload on error
     }
   };
@@ -179,18 +176,6 @@ export default function GalleryManagerPage() {
 
   return (
     <div className="space-y-8">
-      {/* Banner alert messages */}
-      {message.text && (
-        <div
-          className={`p-4 border-l-4 rounded-sm text-sm font-semibold transition-all ${
-            message.type === "success"
-              ? "bg-tertiary-container/30 border-tertiary text-white"
-              : "bg-error-container/30 border-error text-white"
-          }`}
-        >
-          {message.text}
-        </div>
-      )}
 
       <div className="flex justify-between items-center">
         <div>

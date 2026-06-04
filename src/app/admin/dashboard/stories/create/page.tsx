@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useToast } from "@/components/admin/Toast";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import RichTextEditor from "@/components/admin/RichTextEditor";
@@ -9,8 +10,8 @@ import MediaDrawer from "@/components/admin/MediaDrawer";
 export default function CreateStoryPage() {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
-  const [message, setMessage] = useState({ type: "" as "success" | "error" | "", text: "" });
   const [mediaDrawerOpen, setMediaDrawerOpen] = useState(false);
+  const toast = useToast();
   const [existingCategories, setExistingCategories] = useState<string[]>([]);
 
   useEffect(() => {
@@ -45,10 +46,6 @@ export default function CreateStoryPage() {
     isPublished: false,
   });
 
-  const showBanner = (type: "success" | "error", text: string) => {
-    setMessage({ type, text });
-    setTimeout(() => setMessage({ type: "", text: "" }), 5000);
-  };
 
   const handleCoverUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -67,9 +64,9 @@ export default function CreateStoryPage() {
       if (!res.ok) throw new Error(data.error || "Upload failed");
 
       setForm({ ...form, images: [data.url] });
-      showBanner("success", "Cover image uploaded");
+      toast("success", "Cover image uploaded");
     } catch (err: any) {
-      showBanner("error", err.message);
+      toast("error", err.message);
     } finally {
       setSaving(false);
       e.target.value = "";
@@ -89,28 +86,16 @@ export default function CreateStoryPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to create story");
 
-      showBanner("success", "Story created successfully!");
+      toast("success", "Story created successfully!");
       setTimeout(() => router.push("/admin/dashboard/stories"), 1000);
     } catch (err: any) {
-      showBanner("error", err.message);
+      toast("error", err.message);
       setSaving(false);
     }
   };
 
   return (
     <div className="space-y-8">
-      {/* Banner */}
-      {message.text && (
-        <div
-          className={`p-4 border-l-4 rounded-sm text-sm font-semibold transition-all ${
-            message.type === "success"
-              ? "bg-tertiary-container/30 border-tertiary text-white"
-              : "bg-error-container/30 border-error text-white"
-          }`}
-        >
-          {message.text}
-        </div>
-      )}
 
       {/* Breadcrumb + Header */}
       <div className="flex items-center justify-between">

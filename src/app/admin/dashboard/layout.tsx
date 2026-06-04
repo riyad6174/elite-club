@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
+import { ToastProvider } from "@/components/admin/Toast";
 
 export default function DashboardLayout({
   children,
@@ -56,6 +57,7 @@ export default function DashboardLayout({
   ];
 
   return (
+    <ToastProvider>
     <div className="min-h-screen bg-background text-foreground font-body">
       {/* Header bar */}
       <header className="border-b border-outline-variant/15 py-6 px-6 md:px-12 bg-surface-container-lowest/80 backdrop-blur-xl flex items-center justify-between sticky top-0 z-40">
@@ -110,5 +112,6 @@ export default function DashboardLayout({
         {children}
       </div>
     </div>
+    </ToastProvider>
   );
 }

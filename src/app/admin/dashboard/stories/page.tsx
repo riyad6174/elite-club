@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useToast } from "@/components/admin/Toast";
 import Link from "next/link";
 
 interface Story {
@@ -21,7 +22,7 @@ interface Story {
 export default function StoriesManagerPage() {
   const [stories, setStories] = useState<Story[]>([]);
   const [loading, setLoading] = useState(true);
-  const [message, setMessage] = useState({ type: "" as "success" | "error" | "", text: "" });
+  const toast = useToast();
 
   useEffect(() => {
     fetchStories();
@@ -34,16 +35,12 @@ export default function StoriesManagerPage() {
       setStories(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Error fetching stories:", err);
-      showBanner("error", "Failed to fetch stories from database");
+      toast("error", "Failed to fetch stories from database");
     } finally {
       setLoading(false);
     }
   };
 
-  const showBanner = (type: "success" | "error", text: string) => {
-    setMessage({ type, text });
-    setTimeout(() => setMessage({ type: "", text: "" }), 5000);
-  };
 
   const handleTogglePublishStory = async (story: Story) => {
     try {
@@ -53,10 +50,10 @@ export default function StoriesManagerPage() {
         body: JSON.stringify({ isPublished: !story.isPublished }),
       });
       if (!res.ok) throw new Error("Failed to change status");
-      showBanner("success", `Story ${!story.isPublished ? "Published" : "Unpublished"}`);
+      toast("success", `Story ${!story.isPublished ? "Published" : "Unpublished"}`);
       fetchStories();
     } catch (err: any) {
-      showBanner("error", err.message);
+      toast("error", err.message);
     }
   };
 
@@ -65,10 +62,10 @@ export default function StoriesManagerPage() {
     try {
       const res = await fetch(`/api/stories/${id}`, { method: "DELETE" });
       if (!res.ok) throw new Error("Failed to delete story");
-      showBanner("success", "Story deleted");
+      toast("success", "Story deleted");
       fetchStories();
     } catch (err: any) {
-      showBanner("error", err.message);
+      toast("error", err.message);
     }
   };
 
@@ -82,18 +79,6 @@ export default function StoriesManagerPage() {
 
   return (
     <div className="space-y-8">
-      {/* Banner Alert messages */}
-      {message.text && (
-        <div
-          className={`p-4 border-l-4 rounded-sm text-sm font-semibold transition-all ${
-            message.type === "success"
-              ? "bg-tertiary-container/30 border-tertiary text-white"
-              : "bg-error-container/30 border-error text-white"
-          }`}
-        >
-          {message.text}
-        </div>
-      )}
 
       <div className="flex justify-between items-center">
         <div>
