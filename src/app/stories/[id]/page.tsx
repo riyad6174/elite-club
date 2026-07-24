@@ -31,18 +31,18 @@ export async function generateMetadata({
   const story = await getStory(id);
 
   if (!story) {
-    return { title: "Story Not Found | Regina Elites Sporting Club" };
+    return { title: "Story Not Found | Regina Elite Sporting Club" };
   }
 
   const plainBody = story.body?.replace(/<[^>]+>/g, "") || "";
   const description =
     story.excerpt ||
     plainBody.slice(0, 160).trim() ||
-    "Read this story from Regina Elites Sporting Club.";
+    "Read this story from Regina Elite Sporting Club.";
   const coverImage = story.images?.[0];
 
   return {
-    title: `${story.title} | Regina Elites Sporting Club`,
+    title: `${story.title} | Regina Elite Sporting Club`,
     description,
     openGraph: {
       title: story.title,

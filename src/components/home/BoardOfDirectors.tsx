@@ -1,67 +1,47 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+
+interface Director {
+  _id: string;
+  name: string;
+  role: string;
+  img: string | null;
+  resc_id: string | null;
+  jersey_name: string;
+  jersey_no: string;
+}
+
+const PLACEHOLDER_DIRECTORS: Director[] = [
+  { _id: 'p1', name: '', role: '', img: null, resc_id: null, jersey_name: '', jersey_no: '' },
+  { _id: 'p2', name: '', role: '', img: null, resc_id: null, jersey_name: '', jersey_no: '' },
+  { _id: 'p3', name: '', role: '', img: null, resc_id: null, jersey_name: '', jersey_no: '' },
+  { _id: 'p4', name: '', role: '', img: null, resc_id: null, jersey_name: '', jersey_no: '' },
+];
 
 const BoardOfDirectors = () => {
-  const directors = [
-    {
-      name: 'MOHAMMAD ZAKIRUL HASAN',
-      role: 'FOUNDING LEGEND & DIRECTOR',
-      img: '/assets/founders/zakir2.jpeg',
-      resc_id: '2023-001',
-      jersey_name: 'SAYEM',
-      jersey_no: '10',
-    },
-    {
-      name: 'MUHAMMAD KHAZA AHMED',
-      role: 'DIRECTOR OF FINANCE',
-      img: '/assets/founders/khaza.jpg',
-      resc_id: '2023-002',
-      jersey_name: 'KHAZA',
-      jersey_no: '00',
-    },
-    {
-      name: 'MD MIZANUR RAHMAN',
-      role: 'DIRECTOR, PLANNING & STRATEGY',
-      img: '/assets/founders/mizanur2.jpg',
-      resc_id: '2023-003',
-      jersey_name: 'MIZAN',
-      jersey_no: '13',
-    },
-    {
-      name: 'SYED MAHEDI HASAN',
-      role: 'ADMINISTATION & OPERATIONS',
-      img: '/assets/founders/mahedi.jpg',
-      resc_id: '2023-005',
-      jersey_name: 'NEWTON',
-      jersey_no: '10',
-    },
-    {
-      name: 'AKM MOIN-UL HAQUE OPU',
-      role: 'DIRECTOR, PLANNING AND STRATEGY',
-      img: '/assets/founders/opu2.jpg',
-      resc_id: '2023-006',
-      jersey_name: 'MOIN-UL',
-      jersey_no: '—',
-    },
-    // {
-    //   name: 'OBAIDUL HAQUE RIPON',
-    //   role: 'FOUNDING LEGEND & SENIOR MEMBER',
-    //   img: '/assets/founders/ripon.jpg',
-    //   resc_id: null,
-    //   jersey_name: 'RIPON',
-    //   jersey_no: '77',
-    // },
+  const [directors, setDirectors] = useState<Director[]>(PLACEHOLDER_DIRECTORS);
+  const [loading, setLoading] = useState(true);
 
-    {
-      name: 'GOLAM KABIR',
-      role: 'DIRECTOR',
-      img: null,
-      resc_id: '2023-004',
-      jersey_name: 'KABIR',
-      jersey_no: '99',
-    },
-  ];
+  useEffect(() => {
+    fetchDirectors();
+  }, []);
+
+  const fetchDirectors = async () => {
+    try {
+      const res = await fetch('/api/team/directors');
+      if (!res.ok) throw new Error('Failed to fetch');
+      const data = await res.json();
+      if (Array.isArray(data) && data.length > 0) {
+        setDirectors(data);
+      }
+    } catch (err) {
+      console.error('Error fetching directors:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <section className='py-24 md:py-32 bg-surface-container-low'>
@@ -86,7 +66,7 @@ const BoardOfDirectors = () => {
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6'>
           {directors.map((director, index) => (
             <motion.div
-              key={index}
+              key={director._id}
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -96,11 +76,13 @@ const BoardOfDirectors = () => {
               <div className='absolute top-0 left-0 w-1 h-full bg-tertiary/20 group-hover:bg-tertiary transition-colors z-10'></div>
 
               {/* Jersey number badge */}
-              <div className='absolute top-4 right-4 z-20 bg-background/70 backdrop-blur-sm px-2 py-1 text-center'>
-                <span className='text-primary font-headline font-black text-xl leading-none'>
-                  {director.jersey_no}
-                </span>
-              </div>
+              {director.jersey_no && (
+                <div className='absolute top-4 right-4 z-20 bg-background/70 backdrop-blur-sm px-2 py-1 text-center'>
+                  <span className='text-primary font-headline font-black text-xl leading-none'>
+                    {director.jersey_no}
+                  </span>
+                </div>
+              )}
 
               <div className='aspect-[3/4] overflow-hidden transition-all duration-700 bg-surface-container-highest'>
                 {director.img ? (
@@ -123,22 +105,33 @@ const BoardOfDirectors = () => {
               </div>
 
               <div className='p-5 relative'>
-                <h3 className='text-white font-headline font-black text-lg uppercase tracking-tighter mb-1 leading-tight'>
-                  {director.name}
-                </h3>
-                <p className='text-tertiary font-bold tracking-widest text-[10px] uppercase mb-3'>
-                  {director.role}
-                </p>
-                <div className='flex items-center gap-3 pt-3 border-t border-outline-variant/10'>
-                  {director.resc_id && (
-                    <span className='text-white/30 text-[10px] font-bold tracking-wider uppercase'>
-                      ID: {director.resc_id}
-                    </span>
-                  )}
-                  <span className='text-white/30 text-[10px] font-bold tracking-wider uppercase ml-auto'>
-                    JERSEY: {director.jersey_name}
-                  </span>
-                </div>
+                {director.name ? (
+                  <>
+                    <h3 className='text-white font-headline font-black text-lg uppercase tracking-tighter mb-1 leading-tight'>
+                      {director.name}
+                    </h3>
+                    <p className='text-tertiary font-bold tracking-widest text-[10px] uppercase mb-3'>
+                      {director.role}
+                    </p>
+                    <div className='flex items-center gap-3 pt-3 border-t border-outline-variant/10'>
+                      {director.resc_id && (
+                        <span className='text-white/30 text-[10px] font-bold tracking-wider uppercase'>
+                          ID: {director.resc_id}
+                        </span>
+                      )}
+                      {director.jersey_name && (
+                        <span className='text-white/30 text-[10px] font-bold tracking-wider uppercase ml-auto'>
+                          JERSEY: {director.jersey_name}
+                        </span>
+                      )}
+                    </div>
+                  </>
+                ) : (
+                  <div className='space-y-2'>
+                    <div className='h-4 bg-surface-container-high/50 rounded w-3/4'></div>
+                    <div className='h-3 bg-surface-container-high/30 rounded w-1/2'></div>
+                  </div>
+                )}
               </div>
             </motion.div>
           ))}

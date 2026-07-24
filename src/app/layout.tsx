@@ -16,7 +16,7 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Regina Elites Sporting Club | Kinetic Prestige",
+  title: "Regina Elite Sporting Club | Kinetic Prestige",
   description: "Experience the zenith of athletic prestige. Join a legacy of champions where precision meets power in our state-of-the-art facilities.",
 };
 

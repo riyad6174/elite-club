@@ -17,7 +17,7 @@ export default function AboutPage() {
               {[
                 { title: "DISCIPLINE", desc: "The foundation of every elite movement. We believe in the power of routine and the beauty of hard work." },
                 { title: "INNOVATION", desc: "Pushing athletic boundaries with state-of-the-art tech, recovery protocols, and tactical evolution." },
-                { title: "LEGACY", desc: "Every member of Regina Elites Sporting Club carries the torch of 100 years of pride and athletic prestige." }
+                { title: "LEGACY", desc: "Every member of Regina Elite Sporting Club carries the torch of 100 years of pride and athletic prestige." }
               ].map((item, idx) => (
                 <div key={idx} className="space-y-4">
                   <span className="text-primary font-headline font-black text-6xl opacity-20 italic">0{idx + 1}</span>

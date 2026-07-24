@@ -80,7 +80,7 @@ const JoinUs = () => {
                 <div className="aspect-square bg-white p-4 rounded-sm shadow-inner mb-8 transition-transform group-hover:scale-[1.02] duration-500">
                   <img 
                     src="/assets/logo.png" 
-                    alt="Regina Elites QR Registry"
+                    alt="Regina Elite QR Registry"
                     className="w-full h-full object-contain"
                   />
                 </div>

@@ -52,6 +52,7 @@ export default function DashboardLayout({
   const tabs = [
     { id: "gallery", label: "Gallery", href: "/admin/dashboard/gallery" },
     { id: "stories", label: "Stories", href: "/admin/dashboard/stories" },
+    { id: "team", label: "Team", href: "/admin/dashboard/team" },
     { id: "camp", label: "Kids Camp", href: "/admin/dashboard/camp" },
     { id: "media", label: "Media Library", href: "/admin/dashboard/media" },
   ];

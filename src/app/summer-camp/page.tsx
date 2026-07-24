@@ -157,7 +157,7 @@ export default async function SummerCampPage() {
                   <span className="kinetic-text">NEXT GENERATION</span>
                 </h2>
                 <p className="text-on-surface-variant text-lg font-light leading-relaxed">
-                  In 2024, <strong className="text-white">Regina Elites Sporting Club</strong> proudly expanded its impact by hosting its first-ever Kids&apos; Summer Camp — a collaborative initiative with the{" "}
+                  In 2024, <strong className="text-white">Regina Elite Sporting Club</strong> proudly expanded its impact by hosting its first-ever Kids&apos; Summer Camp — a collaborative initiative with the{" "}
                   <strong className="text-white">Royal Bengal Soccer Association (RBSA)</strong>, an internationally recognized sports organization affiliated with the University of Regina.
                 </p>
                 <p className="text-on-surface-variant/70 text-base font-light leading-relaxed">

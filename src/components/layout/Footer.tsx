@@ -8,10 +8,10 @@ const Footer = () => {
       <div className='flex flex-col md:flex-row justify-between items-center py-16 px-6 md:px-12 gap-8 max-w-[1920px] mx-auto'>
         <div className='flex flex-col gap-4 items-center md:items-start text-center md:text-left'>
           <span className='text-3xl md:text-4xl font-black text-[#051b38] opacity-50 font-headline uppercase'>
-            REGINA ELITES SPORTING CLUB
+            REGINA ELITE SPORTING CLUB
           </span>
           <p className='text-white/30 text-[10px] font-headline tracking-widest max-w-xs'>
-            © {currentYear} REGINA ELITES SPORTING CLUB REGINA. ALL RIGHTS
+            © {currentYear} REGINA ELITE SPORTING CLUB REGINA. ALL RIGHTS
             RESERVED.
           </p>
         </div>
